@@ -1,2 +1,1 @@
-# Stores_Sales_Prediction
-Stores Sales Prediction
+# Stores Sales Prediction (ML Project)
