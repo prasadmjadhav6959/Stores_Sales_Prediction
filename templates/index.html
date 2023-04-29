@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Sales Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid hsl(0, 0%, 100%);
+            box-shadow: 0 2px 4px rgb(255, 255, 255);
+            border-radius:5%;
+background: radial-gradient(circle, rgb(255, 0, 0) 0%, rgrgb(0, 119, 255)00%);        }
+        input[type="number"] {
+            padding: 5px;
+            border: 1px solid #000000;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 5px;
+            background-color: #0066ff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <form id="predict-form">
+        <center><h2>Store Sales Predection</h2></center>
+        <input type="number" name="Item_Identifier" placeholder="Item Identifier" step="1">
+<input type="number" name="Item_Weight" placeholder="Item Weight" step="any">
+<input type="number" name="Item_Fat_Content" placeholder="Item Fat Content" step="1">
+<input type="number" name="Item_Visibility" placeholder="Item Visibility" step="any">
+<input type="number" name="Item_Type" placeholder="Item Type" step="1">
+<input type="number" name="Item_MRP" placeholder="Item MRP" step="any">
+<input type="number" name="Outlet_Identifier" placeholder="Outlet Identifier" step="1">
+<input type="number" name="Outlet_Establishment_Year" placeholder="Outlet Establishment Year" step="1">
+<input type="number" name="Outlet_Size" placeholder="Outlet Size" step="1">
+<input type="number" name="Outlet_Location_Type" placeholder="Outlet Location Type" step="1">
+<input type="number" name="Outlet_Type" placeholder="Outlet Type" step="1">
+<br>
+        <button type="submit">Predict</button>
+        <div id="result"></div>
+    </form>
+
+
+    <script>
+        document.getElementById('predict-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+            const response = await fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+    
+            const result = await response.json();
+            document.getElementById('result').textContent = 'Predicted Sales: ' + result.result;
+        });
+    </script>
+</body>
+</html>    
+
+
